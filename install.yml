@@ -85,7 +85,7 @@
         {{ service_xmrig_status.stderr }}
     when: service_xmrig_status | failed
   - name: XMRIG log output
-    shell: "cat {{ log_file }}"
+    shell: "tail -n 15 {{ log_file }}"
     register: xmrig_output
   - debug:
       var: xmrig_output
