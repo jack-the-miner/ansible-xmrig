@@ -11,6 +11,3 @@ start_xmrig:    "/root/xmrig-start.sh"
 source_folder:  "/root/xmrig"
 build_folder:   "{{ source_folder }}/build"
 miner_bin:      "{{ build_folder }}/xmrig";
-
-## Required by Ansible
-ansible_python_interpreter: "/usr/bin/python3"

@@ -1,6 +1,8 @@
 # ansible-xmrig
 Ansible Playbook to download XMRIG miner for Monero Mining from GIT source, build on all nodes and run automatically at server boot.
-<<<<<<< HEAD
+
+Currently tested on:
+* Debian 9
 
 ### \*\*\*IMPORTANT BEFORE LAUNCHING \*\*\*
 
@@ -34,14 +36,36 @@ Include in your host line the user allowed to access to the node by ssh, you can
 
 **Installation requires sudoers user with root priviliges (sudo)**
 
-### 3 - Run
+### 3 - New on Ansible? (optional)
+
+Ansible delivers simple IT automation, it's agentless and works by SSH connections
+
+Install Ansible on you local enviroment:
+
+**Debian / Ubuntu**
+
+```
+apt-get install ansible
+```
+
+### 4 - Run
 
 ```
 ansible-playbook -i hosts install.yml
 ```
 
-### 4 - Enjoy mining!
+### 5 - Enjoy mining!
+
+### Troubleshooting
+
+**Ansible Error:** */usr/bin/python: not found - "msg": "MODULE FAILURE"*
+
+Add to your host file python3 path as ansible_python_interpreter variable value
+
+```
+1.2.3.4   ansible_user=myuser     ansible_python_interpreter=/usr/bin/python3
+```
 
 
-=======
->>>>>>> be2578c6eb16b9f1e864e9bf64149b861a54c01a
+
+
