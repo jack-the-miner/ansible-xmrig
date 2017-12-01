@@ -1,5 +1,6 @@
 # ansible-xmrig
 Ansible Playbook to download XMRIG miner for Monero Mining from GIT source, build on all nodes and run automatically at server boot.
+<<<<<<< HEAD
 
 ### \*\*\*IMPORTANT BEFORE LAUNCHING \*\*\*
 
@@ -42,3 +43,5 @@ ansible-playbook -i hosts install.yml
 ### 4 - Enjoy mining!
 
 
+=======
+>>>>>>> be2578c6eb16b9f1e864e9bf64149b861a54c01a
