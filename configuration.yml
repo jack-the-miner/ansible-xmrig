@@ -1,5 +1,5 @@
 ---
-## Configure your values
+## Mining setting
 public_key:     ""
 mining_pool:    "mine.moneropool.com:3333"
 max_cpu_usage:  "99"
@@ -10,4 +10,4 @@ init_xmrig:     "/etc/init.d/xmrig-init"
 start_xmrig:    "/root/xmrig-start.sh"
 source_folder:  "/root/xmrig"
 build_folder:   "{{ source_folder }}/build"
-miner_bin:      "{{ build_folder }}/xmrig";
+miner_bin:      "{{ build_folder }}/xmrig"

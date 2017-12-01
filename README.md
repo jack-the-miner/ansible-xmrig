@@ -56,7 +56,7 @@ ansible-playbook -i hosts install.yml
 
 ### 5 - Enjoy mining!
 
-### Troubleshooting
+## Troubleshooting
 
 **Ansible Error:** */usr/bin/python: not found - "msg": "MODULE FAILURE"*
 

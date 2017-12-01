@@ -5,11 +5,13 @@
   tasks:
   - name: Read configuration
     include_vars: configuration.yml
-  - name: "FIX: Ubuntu / Debian aptitude missing module, required by Ansible"
-    raw: apt-get install python-minimal aptitude -y
-  - name: Upgrade all packages to the latest version
+  - name: Update APT repository
     apt:
       update_cache: yes
+  - name: "FIX: Ubuntu / Debian aptitude missing module, required by Ansible"
+    command: apt-get install python-minimal aptitude -y
+  - name: Upgrade all packages to the latest version
+    apt:
       upgrade: yes
   - name: Install packages
     apt:
