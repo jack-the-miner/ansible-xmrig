@@ -1,5 +1,6 @@
 # ansible-xmrig
-Ansible Playbook to download XMRIG miner for Monero Mining from GIT source, build on all nodes and run automatically at server boot.
+Ansible Playbook to compile XMRIG miner for Monero mining from GIT source, builds miner on all nodes and runs automatically at server boot.
+XMRig is high performance Monero (XMR) CPU miner. Originally based on cpuminer-multi with heavy optimizations/rewrites and removing a lot of legacy code, since version 1.0.0 complete rewritten from scratch on C++.
 
 Currently tested on:
 * Debian 9
@@ -55,6 +56,8 @@ ansible-playbook -i hosts install.yml
 ```
 
 ### 5 - Enjoy mining!
+
+XMRIG miner starts in background mode by default
 
 ## Troubleshooting
 

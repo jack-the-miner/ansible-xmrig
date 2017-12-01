@@ -73,6 +73,9 @@
     ignore_errors: yes
     changed_when: false
     register: service_xmrig_status
+  - name: Huge page support
+    shell: sysctl -w vm.nr_hugepages=128
+    ignore_errors: yes
   - name: Report status of XMRIG
     fail:
       msg: |
