@@ -1,0 +1,6 @@
+#!/bin/bash
+PUBLIC_KEY="{{ public_key}}"
+LOG_FILE="{{ log_file }}"
+POOL_HOST="{{ mining_pool }}"
+MAX_CPU="{{ max_cpu_usage }}"
+{{ miner_bin }} -t $(nproc) -v 0 -B -k --log-file=$LOG_FILE --print-time=60 --donate-level=1 --max-cpu-usage=$MAX_CPU -o $POOL_HOST -u $PUBLIC_KEY -p x

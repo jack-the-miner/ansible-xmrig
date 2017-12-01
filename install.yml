@@ -1,0 +1,86 @@
+---
+- hosts: all
+  become: yes
+  become_method: sudo
+  tasks:
+  - name: Read configuration
+    include_vars: configuration.yml
+  - name: "FIX: Ubuntu / Debian aptitude missing module, required by Ansible"
+    raw: apt-get install python-minimal aptitude -y
+  - name: Upgrade all packages to the latest version
+    apt:
+      update_cache: yes
+      upgrade: yes
+  - name: Install packages
+    apt:
+      package: "{{ item }}"
+      state: present
+    with_items:
+      - git
+      - curl
+      - htop
+      - tree
+      - make
+      - build-essential
+      - cmake
+      - libuv1-dev
+      - libmicrohttpd-dev
+  - name: Download GIT Source
+    git:
+      repo: "https://github.com/xmrig/xmrig.git"
+      dest: "{{ source_folder }}"
+  - name: Creates build directory
+    file:
+      path: "{{ build_folder }}"
+      state: directory
+  - name: Build XMRIG miner
+    shell: "cmake .. && make"
+    args:
+      chdir: "{{ build_folder }}"
+  - name: Copy start miner file
+    template:
+      src: templates/xmrig-start.sh.j2
+      dest: "{{ start_xmrig }}"
+      owner: root
+      group: root
+      mode: 0700
+  - name: Copy System V init script
+    template:
+      src: templates/xmrig-init.j2
+      dest: "{{ init_xmrig }}"
+      owner: root
+      group: root
+      mode: 0700
+  - name: Set XMRIG init script - System V
+    shell: "update-rc.d xmrig-init defaults"
+  - name: Reboot nodes (test XMRIG auto-start)
+    shell: sleep 2 && shutdown -r now "Ansible reboot"
+    async: 1
+    poll: 0
+    ignore_errors: true
+  - name: Waiting for server reboot
+    local_action: wait_for
+    args:
+      host: "{{ inventory_hostname }}"
+      port: 22
+      state: started
+      delay: 30
+      timeout: 300
+  - name: Check if XMRIG is running
+    command: systemctl status xmrig-init
+    ignore_errors: yes
+    changed_when: false
+    register: service_xmrig_status
+  - name: Report status of XMRIG
+    fail:
+      msg: |
+        Service XMRIG is not running.
+        Output of systemctl status xmrig-init:
+        {{ service_xmrig_status.stdout }}
+        {{ service_xmrig_status.stderr }}
+    when: service_xmrig_status | failed
+  - name: XMRIG log output
+    shell: "cat {{ log_file }}"
+    register: xmrig_output
+  - debug:
+      var: xmrig_output
